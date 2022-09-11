@@ -1,1 +1,46 @@
-<p> user form </p>
+<mat-card class="user-form__card">
+  <mat-card-title class="user-form__card-title">User Form</mat-card-title>
+  <mat-card-content>
+    <form [formGroup]="userForm" class="user-form__form">
+      <mat-form-field class="user-form__form-field" appearance="fill">
+        <mat-label>Name</mat-label>
+        <input matInput type="text" formControlName="name">
+        <mat-error *ngIf="userForm.controls.name.hasError('required')">This field is required!</mat-error>
+        <mat-error *ngIf="userForm.controls.name.hasError('pattern')">This field can contain only text.</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Username</mat-label>
+        <input matInput type="text" formControlName="username" email>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Country</mat-label>
+        <mat-select formControlName="country">
+          <mat-option *ngFor="let country of countries" [value]="country">{{ country }}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="userForm.controls.country.hasError('required')">This field is required!</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Post Code</mat-label>
+        <input matInput type="text" formControlName="postCode" minlength="6" maxlength="10">
+        <mat-error *ngIf="userForm.controls.postCode.hasError('required')">This field is required!</mat-error>
+        <mat-error *ngIf="userForm.controls.postCode.hasError('pattern')">Must be a valid United Kingdom Post code!</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Favorite Movie</mat-label>
+        <input matInput type="text" formControlName="favoriteMovie" [matAutocomplete]="autocomplete">
+
+        <mat-autocomplete #autocomplete="matAutocomplete">
+          <mat-option *ngFor="let country of countries" [value]="country">
+            {{ country }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+
+      <button type="submit" mat-raised-button color="primary" (click)="onSubmitButtonClick()">Submit</button>
+    </form>
+  </mat-card-content>
+</mat-card>

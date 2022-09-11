@@ -1,0 +1,18 @@
+.user-form__card {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 30px 0;
+}
+
+.user-form__form {
+  display: flex;
+  flex-direction: column;
+  margin-top: 50px;
+  width: 300px;
+}
+
+.user-form__card-title {
+  width: 300px;
+}
