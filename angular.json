@@ -104,6 +104,37 @@
           }
         }
       }
+    },
+    "user-form": {
+      "projectType": "library",
+      "root": "projects/user-form",
+      "sourceRoot": "projects/user-form/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/user-form/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/user-form/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/user-form/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/user-form/src/test.ts",
+            "tsConfig": "projects/user-form/tsconfig.spec.json",
+            "karmaConfig": "projects/user-form/karma.conf.js"
+          }
+        }
+      }
     }
   }
 }
