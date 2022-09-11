@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'lib-user-form-container',
@@ -6,4 +7,8 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   styleUrls: ['./user-form-container.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class UserFormContainerComponent {}
+export class UserFormContainerComponent {
+  constructor(router: Router) {
+    router.navigate(['enter']);
+  }
+}

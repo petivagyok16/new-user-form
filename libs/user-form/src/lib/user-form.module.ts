@@ -1,15 +1,20 @@
 import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
-import { UserFormContainerComponent } from './containers/user-form-container.component';
+import { components } from './components';
+import { containers } from './containers';
+import { UserFormRoutingModule } from './user-form-routing.module';
 
 @NgModule({
-  declarations: [
-    UserFormContainerComponent
-  ],
   imports: [
+    CommonModule,
+    UserFormRoutingModule,
+    RouterModule,
   ],
-  exports: [
-    UserFormContainerComponent
-  ]
+  declarations: [
+    ...containers,
+    ...components,
+  ],
 })
-export class UserFormModule { }
+export class UserFormModule {}
