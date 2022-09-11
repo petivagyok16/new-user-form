@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { SummaryComponent } from './components/summary/summary.component';
-import { UserFormComponent } from './components/user-form/user-form.component';
+import { UserFormCardContainerComponent } from './containers/user-form-card-container/user-form-card-container.component';
 
 import { UserFormContainerComponent } from './containers/user-form-container/user-form-container.component';
 
@@ -12,7 +12,7 @@ const routes: Routes = [
     children: [
       {
         path: 'enter',
-        component: UserFormComponent
+        component: UserFormCardContainerComponent
       },
       {
         path: 'thank-you',

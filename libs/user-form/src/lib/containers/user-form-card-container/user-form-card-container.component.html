@@ -1,0 +1,10 @@
+<mat-card class="user-form-card-container__card">
+  <mat-card-title class="user-form-card-container__card-title">User Form</mat-card-title>
+  <mat-card-content>
+    <lib-user-form-user-form
+      [searchResults]="(searchResults$ | async) ?? []"
+      (search)="onSearch($event)"
+    >
+    </lib-user-form-user-form>
+  </mat-card-content>
+</mat-card>
