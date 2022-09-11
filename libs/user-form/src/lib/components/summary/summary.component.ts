@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'lib-user-form-summary',
@@ -6,4 +7,14 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   styleUrls: ['./summary.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SummaryComponent {}
+export class SummaryComponent {
+  readonly userFormData?: any;
+
+  constructor(router: Router) {
+    this.userFormData = router.getCurrentNavigation()?.extras.state;
+  }
+
+  ngOnInit(): void {
+    console.log(this.userFormData);
+  }
+}

@@ -4,10 +4,11 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
 import { EffectsModule } from '@ngrx/effects';
 import { ActionReducer, StoreModule } from '@ngrx/store';
@@ -30,8 +31,9 @@ export const FEATURE_REDUCER_TOKEN = new InjectionToken<ActionReducer<UserFormSt
     MatCardModule,
     MatButtonModule,
     MatInputModule,
-    MatFormFieldModule,
     MatIconModule,
+    MatFormFieldModule,
+    MatListModule,
     MatSelectModule,
     UserFormRoutingModule,
     ReactiveFormsModule,

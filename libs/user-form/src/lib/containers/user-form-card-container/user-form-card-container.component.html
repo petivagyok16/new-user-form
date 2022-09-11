@@ -4,6 +4,7 @@
     <lib-user-form-user-form
       [searchResults]="(searchResults$ | async) ?? []"
       (search)="onSearch($event)"
+      (navigateToSummary)="onNavigateToSummary($event)"
     >
     </lib-user-form-user-form>
   </mat-card-content>

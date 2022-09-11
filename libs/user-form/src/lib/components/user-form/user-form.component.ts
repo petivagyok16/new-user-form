@@ -6,6 +6,7 @@ import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { COUNTRIES } from '../../constants/countries.constant';
 import { UNITED_KINGDOM_POST_CODE_REGEXP } from '../../constants/united-kingdom-post-code.constant';
 import { Countries } from '../../enums/countries.enum';
+import { UserFormValue } from '../../interfaces/user-form-value.interface';
 import { UserForm } from '../../interfaces/user-form.interface';
 
 @Component({
@@ -17,6 +18,7 @@ import { UserForm } from '../../interfaces/user-form.interface';
 export class UserFormComponent {
   @Input() searchResults: readonly string[] = [];
   @Output() search = new EventEmitter<string>();
+  @Output() navigateToSummary = new EventEmitter<any>(); // TODO: Partial<UserForm> ???
 
   readonly userForm: FormGroup<UserForm> = new FormGroup({
     name: new FormControl('', { nonNullable: true, validators: [Validators.required, Validators.pattern('[a-zA-Z]*')] }),
@@ -42,7 +44,7 @@ export class UserFormComponent {
       return;
     }
 
-    console.log(`SUBMITTED`);
+    this.navigateToSummary.emit(this.userForm.value);
   }
 
   private listenOnCountryFormControlChanges(): void {
