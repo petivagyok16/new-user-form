@@ -9,7 +9,7 @@
   <mat-form-field class="user-form__form-field" appearance="fill">
     <mat-label>Username</mat-label>
     <input matInput type="text" formControlName="username" email>
-    <mat-error *ngIf="userForm.controls.username.hasError('email')">Must be a valid email!</mat-error>
+    <mat-error *ngIf="userForm.controls.username.hasError('email')">Username must be a valid email address!</mat-error>
   </mat-form-field>
 
   <mat-form-field class="user-form__form-field" appearance="fill">
@@ -41,5 +41,5 @@
     </mat-autocomplete>
   </mat-form-field>
 
-  <button type="submit" mat-raised-button color="primary" (click)="onSubmitButtonClick()">Submit</button>
+  <button type="button" mat-raised-button color="primary" (click)="onSubmitButtonClick()">Submit</button>
 </form>

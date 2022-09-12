@@ -1,7 +1,36 @@
 <mat-list role="list">
-  <mat-list-item role="listitem">Name: {{ userFormData.name }}</mat-list-item>
-  <mat-list-item *ngIf="userFormData.username" role="listitem">Username: {{ userFormData.username }}</mat-list-item>
-  <mat-list-item role="listitem">Country: {{ userFormData.country }}</mat-list-item>
-  <mat-list-item *ngIf="userFormData.postCode" role="listitem">Post Code: {{ userFormData.postCode }}</mat-list-item>
-  <mat-list-item *ngIf="userFormData.favoriteMovie" role="listitem">Favorite Movie: {{ userFormData.favoriteMovie }}</mat-list-item>
+  <mat-list-item
+    role="listitem">
+    Name: {{ userFormData.name }}
+  </mat-list-item>
+
+  <mat-list-item
+    *ngIf="userFormData.username"
+    role="listitem"
+    data-id="username-list-item"
+  >
+    Username: {{ userFormData.username }}
+  </mat-list-item>
+
+  <mat-list-item
+    role="listitem"
+  >
+    Country: {{ userFormData.country }}
+  </mat-list-item>
+
+  <mat-list-item
+    *ngIf="userFormData.postCode"
+    role="listitem"
+    data-id="post-code-list-item"
+  >
+    Post Code: {{ userFormData.postCode }}
+  </mat-list-item>
+
+  <mat-list-item
+    *ngIf="userFormData.favoriteMovie"
+    role="listitem"
+    data-id="favorite-movie-list-item"
+  >
+    Favorite Movie: {{ userFormData.favoriteMovie }}
+  </mat-list-item>
 </mat-list>

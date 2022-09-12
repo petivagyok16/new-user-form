@@ -1,6 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { concat, of, throwError } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
 
 import {
@@ -29,10 +30,9 @@ export class UserFormEffects {
 
         return fetchFavoriteMoviesSuccess({ results: mapOmdbApiResponseToResults(omdbApiResponse) })
       }),
-      catchError((err: HttpErrorResponse) => {
-        fetchFavoriteMoviesError({ error: 'Something went wrong!' })
-        throw err;
-      }),
+      catchError((error: HttpErrorResponse) =>
+        concat(of(fetchFavoriteMoviesError({ error: 'Something went wrong!' })), throwError(error)
+      )),
     )
   );
 

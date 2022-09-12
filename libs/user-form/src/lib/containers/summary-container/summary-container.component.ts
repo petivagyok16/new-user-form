@@ -15,8 +15,4 @@ export class SummaryContainerComponent {
   constructor(router: Router) {
     this.userFormData = router.getCurrentNavigation()?.extras.state as UserFormValue;
   }
-
-  ngOnInit(): void {
-    console.log(this.userFormData);
-  }
 }
