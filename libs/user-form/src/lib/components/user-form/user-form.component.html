@@ -6,12 +6,13 @@
     <mat-error *ngIf="userForm.controls.name.hasError('pattern')">This field can contain only text.</mat-error>
   </mat-form-field>
 
-  <mat-form-field appearance="fill">
+  <mat-form-field class="user-form__form-field" appearance="fill">
     <mat-label>Username</mat-label>
     <input matInput type="text" formControlName="username" email>
+    <mat-error *ngIf="userForm.controls.username.hasError('email')">Must be a valid email!</mat-error>
   </mat-form-field>
 
-  <mat-form-field appearance="fill">
+  <mat-form-field class="user-form__form-field" appearance="fill">
     <mat-label>Country</mat-label>
     <mat-select formControlName="country">
       <mat-option *ngFor="let country of countries" [value]="country">{{ country }}</mat-option>
@@ -19,14 +20,17 @@
     <mat-error *ngIf="userForm.controls.country.hasError('required')">This field is required!</mat-error>
   </mat-form-field>
 
-  <mat-form-field appearance="fill">
+  <mat-form-field class="user-form__form-field" appearance="fill">
     <mat-label>Post Code</mat-label>
-    <input matInput type="text" formControlName="postCode" minlength="6" maxlength="10">
+    <input matInput type="text" formControlName="postCode">
     <mat-error *ngIf="userForm.controls.postCode.hasError('required')">This field is required!</mat-error>
     <mat-error *ngIf="userForm.controls.postCode.hasError('pattern')">Must be a valid United Kingdom Post code!</mat-error>
+    <mat-error *ngIf="userForm.controls.postCode.hasError('minlength') || userForm.controls.postCode.hasError('maxlength')">
+      The length of the Post Code must be between 6 and 10 characters!
+    </mat-error>
   </mat-form-field>
 
-  <mat-form-field appearance="fill">
+  <mat-form-field class="user-form__form-field" appearance="fill">
     <mat-label>Favorite Movie</mat-label>
     <input matInput type="text" formControlName="favoriteMovie" [matAutocomplete]="autocomplete">
 

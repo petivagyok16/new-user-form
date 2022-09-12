@@ -22,12 +22,12 @@ export class UserFormEffects {
     this.actions$.pipe(
       ofType(fetchFavoriteMovies),
       switchMap((action: FetchFavoriteMoviesAction) => this.http.get<OmdbApiResponse>(`${UserFormEffects.url}${action.searchTerm}`)),
-      map((favoriteMoviesResponse: OmdbApiResponse) => {
-        if (favoriteMoviesResponse.Response === 'False') {
-          throw new Error(favoriteMoviesResponse.Error);
+      map((omdbApiResponse: OmdbApiResponse) => {
+        if (omdbApiResponse.Response === 'False') {
+          throw new Error(omdbApiResponse.Error);
         }
 
-        return fetchFavoriteMoviesSuccess({ results: mapOmdbApiResponseToResults(favoriteMoviesResponse.Search) })
+        return fetchFavoriteMoviesSuccess({ results: mapOmdbApiResponseToResults(omdbApiResponse) })
       }),
       catchError((err: HttpErrorResponse) => {
         fetchFavoriteMoviesError({ error: 'Something went wrong!' })

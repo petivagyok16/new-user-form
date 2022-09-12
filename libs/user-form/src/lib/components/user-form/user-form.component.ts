@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
@@ -7,7 +7,9 @@ import { COUNTRIES } from '../../constants/countries.constant';
 import { UNITED_KINGDOM_POST_CODE_REGEXP } from '../../constants/united-kingdom-post-code.constant';
 import { Countries } from '../../enums/countries.enum';
 import { UserFormValue } from '../../interfaces/user-form-value.interface';
-import { UserForm } from '../../interfaces/user-form.interface';
+
+const UK_POST_CODE_VALIDATORS = [Validators.required, Validators.pattern(UNITED_KINGDOM_POST_CODE_REGEXP)];
+const IRELAND_POST_CODE_VALIDATORS = [Validators.minLength(6), Validators.maxLength(10)];
 
 @Component({
   selector: 'lib-user-form-user-form',
@@ -15,12 +17,12 @@ import { UserForm } from '../../interfaces/user-form.interface';
   styleUrls: ['./user-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class UserFormComponent {
+export class UserFormComponent implements OnDestroy {
   @Input() searchResults: readonly string[] = [];
   @Output() search = new EventEmitter<string>();
-  @Output() navigateToSummary = new EventEmitter<any>(); // TODO: Partial<UserForm> ???
+  @Output() navigateToSummary = new EventEmitter<UserFormValue>();
 
-  readonly userForm: FormGroup<UserForm> = new FormGroup({
+  readonly userForm = new FormGroup({
     name: new FormControl('', { nonNullable: true, validators: [Validators.required, Validators.pattern('[a-zA-Z]*')] }),
     username: new FormControl(''),
     country: new FormControl('', { nonNullable: true, validators: Validators.required }),
@@ -44,7 +46,7 @@ export class UserFormComponent {
       return;
     }
 
-    this.navigateToSummary.emit(this.userForm.value);
+    this.navigateToSummary.emit(this.userForm.value as UserFormValue);
   }
 
   private listenOnCountryFormControlChanges(): void {
@@ -56,15 +58,16 @@ export class UserFormComponent {
   }
 
   private updatePostCodeControlValidators(value: string): void {
-    const validators = [Validators.required, Validators.pattern(UNITED_KINGDOM_POST_CODE_REGEXP)];
-
     if (value === Countries.UNITED_KINGDOM) {
-      this.userForm.controls.postCode.setValidators(validators);
-      this.userForm.controls.postCode.updateValueAndValidity();
-      return;
+      this.userForm.controls.postCode.removeValidators(IRELAND_POST_CODE_VALIDATORS);
+      this.userForm.controls.postCode.setValidators(UK_POST_CODE_VALIDATORS);
     }
 
-    this.userForm.controls.postCode.removeValidators(validators);
+    if (value === Countries.IRELAND) {
+      this.userForm.controls.postCode.removeValidators(UK_POST_CODE_VALIDATORS);
+      this.userForm.controls.postCode.setValidators(IRELAND_POST_CODE_VALIDATORS);
+    }
+
     this.userForm.controls.postCode.updateValueAndValidity();
   }
 

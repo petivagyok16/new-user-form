@@ -1,8 +1,9 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { fetchFavoriteMovies } from '../../store/actions/user-form.actions';
 
+import { UserFormValue } from '../../interfaces/user-form-value.interface';
+import { fetchFavoriteMovies } from '../../store/actions/user-form.actions';
 import { selectSearchResults$ } from '../../store/selectors/user-form.selectors';
 
 @Component({
@@ -23,7 +24,7 @@ export class UserFormCardContainerComponent {
     this.store.dispatch(fetchFavoriteMovies({ searchTerm }));
   }
 
-  onNavigateToSummary(userFormValue: any): void { // TODO: interface
-    this.router.navigate(['thank-you'], { state: userFormValue });
+  onNavigateToSummary(userFormValue: UserFormValue): void {
+    this.router.navigate(['thankyou'], { state: userFormValue });
   }
 }

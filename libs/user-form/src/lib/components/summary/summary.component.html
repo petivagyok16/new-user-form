@@ -1,13 +1,7 @@
-
-<mat-card class="summary__card">
-  <mat-card-title class="summary__card-title">Thank you!</mat-card-title>
-  <mat-card-content>
-    <mat-list *ngIf="userFormData" role="list">
-      <mat-list-item role="listitem">Name: {{ userFormData.name }}</mat-list-item>
-      <mat-list-item *ngIf="userFormData.username" role="listitem">Username: {{ userFormData.username }}</mat-list-item>
-      <mat-list-item role="listitem">Country: {{ userFormData.country }}</mat-list-item>
-      <mat-list-item *ngIf="userFormData.postCode" role="listitem">Post Code: {{ userFormData.postCode }}</mat-list-item>
-      <mat-list-item *ngIf="userFormData.favoriteMovie" role="listitem">Favorite Movie: {{ userFormData.favoriteMovie }}</mat-list-item>
-    </mat-list>
-  </mat-card-content>
-</mat-card>
+<mat-list role="list">
+  <mat-list-item role="listitem">Name: {{ userFormData.name }}</mat-list-item>
+  <mat-list-item *ngIf="userFormData.username" role="listitem">Username: {{ userFormData.username }}</mat-list-item>
+  <mat-list-item role="listitem">Country: {{ userFormData.country }}</mat-list-item>
+  <mat-list-item *ngIf="userFormData.postCode" role="listitem">Post Code: {{ userFormData.postCode }}</mat-list-item>
+  <mat-list-item *ngIf="userFormData.favoriteMovie" role="listitem">Favorite Movie: {{ userFormData.favoriteMovie }}</mat-list-item>
+</mat-list>

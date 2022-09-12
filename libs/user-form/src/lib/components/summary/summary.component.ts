@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+
+import { UserFormValue } from '../../interfaces/user-form-value.interface';
 
 @Component({
   selector: 'lib-user-form-summary',
@@ -8,13 +9,5 @@ import { Router } from '@angular/router';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SummaryComponent {
-  readonly userFormData?: any;
-
-  constructor(router: Router) {
-    this.userFormData = router.getCurrentNavigation()?.extras.state;
-  }
-
-  ngOnInit(): void {
-    console.log(this.userFormData);
-  }
+  @Input() userFormData!: UserFormValue;
 }

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { SummaryComponent } from './components/summary/summary.component';
+import { SummaryContainerComponent } from './containers/summary-container/summary-container.component';
 import { UserFormCardContainerComponent } from './containers/user-form-card-container/user-form-card-container.component';
 
 import { UserFormContainerComponent } from './containers/user-form-container/user-form-container.component';
@@ -15,11 +15,15 @@ const routes: Routes = [
         component: UserFormCardContainerComponent
       },
       {
-        path: 'thank-you',
-        component: SummaryComponent
-      }
+        path: 'thankyou',
+        component: SummaryContainerComponent
+      },
     ]
   },
+  {
+    path: '**',
+    component: UserFormCardContainerComponent
+  }
 ];
 
 @NgModule({
