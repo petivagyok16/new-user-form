@@ -5,9 +5,9 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 ## Library
 The main part of the codebase can be found under the libs/ folder
 
-## Development server
-
-Run `npm start` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## How to start the app
+After installing all the dependencies `npm install`,\
+run `npm start` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
 ## Running unit tests
 For running the app frame tests use: `npm run test`\
