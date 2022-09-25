@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 
 import { UserFormValue } from '../../interfaces/user-form-value.interface';
 import { fetchFavoriteMovies } from '../../store/actions/user-form.actions';
-import { selectSearchResults$ } from '../../store/selectors/user-form.selectors';
+import { selectGroupedMovies$, selectSearchResults$ } from '../../store/selectors/user-form.selectors';
 
 @Component({
   selector: 'lib-user-form-card-container',
@@ -14,6 +14,7 @@ import { selectSearchResults$ } from '../../store/selectors/user-form.selectors'
 })
 export class UserFormCardContainerComponent {
   searchResults$ = this.store.select(selectSearchResults$);
+  groupedMovies$ = this.store.select(selectGroupedMovies$);
 
   constructor(
     private router: Router,

@@ -1,6 +1,17 @@
+
 <mat-card class="user-form-card-container__card">
   <mat-card-title class="user-form-card-container__card-title">User Form</mat-card-title>
-  <mat-card-content>
+  <mat-card-content class="user-form-card-container__card-content">
+    <article>
+      <ul *ngIf="(groupedMovies$ | async) as groupedMovies">
+        <li *ngFor="let movieYear of groupedMovies">
+          Year: {{ movieYear.year }}
+          <ul>
+            <li *ngFor="let movie of movieYear.movies">{{ movie }}</li>
+          </ul>
+        </li>
+      </ul>
+    </article>
     <lib-user-form-user-form
       data-id="user-form-component"
       [searchResults]="(searchResults$ | async) ?? []"

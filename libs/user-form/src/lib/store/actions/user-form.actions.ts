@@ -1,4 +1,5 @@
 import { createAction, props } from '@ngrx/store';
+import { GroupedMovie } from '../../interfaces/grouped-movie.interface';
 
 const category = '[UserForm]';
 
@@ -8,6 +9,7 @@ export interface FetchFavoriteMoviesAction {
 
 export interface FetchFavoriteSuccessAction {
   readonly results: readonly string[];
+  readonly groupedMovies: readonly GroupedMovie[];
 }
 
 export interface FetchFavoriteMoviesErrorAction {

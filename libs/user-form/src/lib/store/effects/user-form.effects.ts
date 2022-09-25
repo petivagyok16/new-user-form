@@ -11,7 +11,8 @@ import {
   fetchFavoriteMoviesSuccess
 } from '../actions/user-form.actions';
 import { OmdbApiResponse } from '../../interfaces/omdb-api-response.interface';
-import { mapOmdbApiResponseToResults } from '../../mappers/omdb-api-response-to-results.mapper';
+import { mapOmdbApiResponseToResults } from '../../mappers/omdb-api-response-to-results/omdb-api-response-to-results.mapper';
+import { mapOmdbApiResponseToGroupedMovies } from '../../mappers/omdb-api-response-to-grouped-movies/omdb-api-response-to-grouped-movies.mapper';
 
 @Injectable()
 export class UserFormEffects {
@@ -28,7 +29,10 @@ export class UserFormEffects {
           throw new Error(omdbApiResponse.Error);
         }
 
-        return fetchFavoriteMoviesSuccess({ results: mapOmdbApiResponseToResults(omdbApiResponse) })
+        return fetchFavoriteMoviesSuccess({
+          results: mapOmdbApiResponseToResults(omdbApiResponse),
+          groupedMovies: mapOmdbApiResponseToGroupedMovies(omdbApiResponse)
+        })
       }),
       catchError((error: HttpErrorResponse) =>
         concat(of(fetchFavoriteMoviesError({ error: 'Something went wrong!' })), throwError(error)

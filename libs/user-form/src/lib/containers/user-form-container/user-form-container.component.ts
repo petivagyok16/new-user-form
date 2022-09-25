@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -6,9 +6,11 @@ import { Router } from '@angular/router';
   templateUrl: './user-form-container.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class UserFormContainerComponent {
+export class UserFormContainerComponent implements OnInit {
 
-  constructor(router: Router) {
-    router.navigate(['enter']);
+  constructor(private readonly router: Router) {}
+
+  ngOnInit(): void {
+    this.router.navigate(['enter']);
   }
 }

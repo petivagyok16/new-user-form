@@ -1,7 +1,7 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subject } from 'rxjs';
-import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, filter, takeUntil } from 'rxjs/operators';
 
 import { COUNTRIES } from '../../constants/countries.constant';
 import { UNITED_KINGDOM_POST_CODE_REGEXP } from '../../constants/united-kingdom-post-code.constant';
@@ -17,13 +17,13 @@ const IRELAND_POST_CODE_VALIDATORS = [Validators.minLength(6), Validators.maxLen
   styleUrls: ['./user-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class UserFormComponent implements OnDestroy {
+export class UserFormComponent implements OnDestroy, OnInit {
   @Input() searchResults: readonly string[] = [];
   @Output() search = new EventEmitter<string>();
   @Output() navigateToSummary = new EventEmitter<UserFormValue>();
 
   readonly userForm = new FormGroup({
-    name: new FormControl('', { nonNullable: true, validators: [Validators.required, Validators.pattern('[a-zA-Z]*')] }),
+    name: new FormControl('', { nonNullable: true, validators: [Validators.required, Validators.pattern(`[a-zA-Z]*`)] }),
     username: new FormControl(''),
     country: new FormControl('', { nonNullable: true, validators: Validators.required }),
     postCode: new FormControl(''),
@@ -34,7 +34,7 @@ export class UserFormComponent implements OnDestroy {
 
   private readonly objectDestroySource$ = new Subject<void>();
 
-  constructor() {
+  ngOnInit(): void {
     this.listenOnCountryFormControlChanges();
     this.listenOnFavoriteMovieInputChange();
   }
@@ -58,13 +58,11 @@ export class UserFormComponent implements OnDestroy {
   }
 
   private updatePostCodeControlValidators(value: string): void {
-    if (value === Countries.UNITED_KINGDOM) {
-      this.userForm.controls.postCode.removeValidators(IRELAND_POST_CODE_VALIDATORS);
+    if (Countries.UNITED_KINGDOM) {
       this.userForm.controls.postCode.setValidators(UK_POST_CODE_VALIDATORS);
     }
 
     if (value === Countries.IRELAND) {
-      this.userForm.controls.postCode.removeValidators(UK_POST_CODE_VALIDATORS);
       this.userForm.controls.postCode.setValidators(IRELAND_POST_CODE_VALIDATORS);
     }
 
@@ -74,15 +72,13 @@ export class UserFormComponent implements OnDestroy {
   private listenOnFavoriteMovieInputChange(): void {
     this.userForm.controls.favoriteMovie.valueChanges
     .pipe(
+      filter(Boolean),
       debounceTime(300),
       distinctUntilChanged(),
       takeUntil(this.objectDestroySource$))
-    .subscribe((searchTerm: string | null) => {
-      if (!searchTerm) {
-        return;
-      }
+    .subscribe((searchTerm: string) => {
       this.search.emit(searchTerm);
-    })
+    });
   }
 
   ngOnDestroy(): void {

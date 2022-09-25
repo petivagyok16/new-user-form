@@ -18,7 +18,7 @@ describe('User form reducer', () => {
   });
 
   it(`should handle 'fetchFavoriteMoviesSuccess' action`, () => {
-    const action = fetchFavoriteMoviesSuccess({ results: ['test', 'test 2'] });
+    const action = fetchFavoriteMoviesSuccess({ results: ['test', 'test 2'], groupedMovies: [] });
 
     expect(userFormReducer(undefined, action)).toEqual(fetchFavoriteMoviesSuccessState);
   });

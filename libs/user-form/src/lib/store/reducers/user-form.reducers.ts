@@ -26,6 +26,7 @@ export const userFormReducer = createReducer(
       ...state,
       isLoading: false,
       results: action.results,
+      groupedMovies: action.groupedMovies,
     })
   ),
 
